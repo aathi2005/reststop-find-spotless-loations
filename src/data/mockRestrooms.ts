@@ -27,35 +27,38 @@ export interface Review {
   date: string;
 }
 
+// Coordinates for Coimbatore, Tamil Nadu, India
+const COIMBATORE_CENTER = { lat: 11.0168, lng: 76.9558 };
+
 export const mockRestrooms: Restroom[] = [
   {
     id: "1",
-    name: "Central Park Public Restroom",
-    address: "Central Park, New York, NY",
-    latitude: 40.7812,
-    longitude: -73.9665,
+    name: "Brookefields Mall Restroom",
+    address: "Brookefields Mall, Krishnasamy Rd, Coimbatore",
+    latitude: 11.0120,
+    longitude: 76.9523,
     cleanliness: 4.2,
     amenities: ["Toilet paper", "Soap", "Hand dryer"],
     reviews: [
       {
         id: "r1",
         userId: "u1",
-        userName: "Sarah J.",
+        userName: "Priya S.",
         rating: 4,
-        comment: "Very clean for a public restroom. Well maintained.",
-        date: "2023-11-15"
+        comment: "Very clean for a mall restroom. Well maintained.",
+        date: "2024-03-15"
       },
       {
         id: "r2",
         userId: "u2",
-        userName: "Mike T.",
+        userName: "Anand T.",
         rating: 5,
         comment: "Surprisingly clean and well-stocked with supplies.",
-        date: "2023-11-10"
+        date: "2024-03-10"
       }
     ],
     isOpen: true,
-    hours: "6:00 AM - 10:00 PM",
+    hours: "10:00 AM - 10:00 PM",
     isFree: true,
     isAccessible: true,
     hasChangingTable: true,
@@ -64,24 +67,24 @@ export const mockRestrooms: Restroom[] = [
   },
   {
     id: "2",
-    name: "Starbucks - 5th Avenue",
-    address: "500 5th Ave, New York, NY",
-    latitude: 40.7549,
-    longitude: -73.9840,
+    name: "Café Coffee Day - RS Puram",
+    address: "RS Puram, Coimbatore, Tamil Nadu",
+    latitude: 11.0070,
+    longitude: 76.9560,
     cleanliness: 4.5,
     amenities: ["Toilet paper", "Soap", "Hand dryer", "Air freshener"],
     reviews: [
       {
         id: "r3",
         userId: "u3",
-        userName: "Lisa R.",
+        userName: "Lakshmi R.",
         rating: 4,
         comment: "Clean and accessible. Need to purchase something first.",
-        date: "2023-11-12"
+        date: "2024-03-12"
       }
     ],
     isOpen: true,
-    hours: "5:30 AM - 9:00 PM",
+    hours: "8:30 AM - 11:00 PM",
     isFree: false,
     isAccessible: true,
     hasChangingTable: true,
@@ -90,28 +93,28 @@ export const mockRestrooms: Restroom[] = [
   },
   {
     id: "3",
-    name: "Grand Central Terminal",
-    address: "89 E 42nd St, New York, NY",
-    latitude: 40.7527,
-    longitude: -73.9772,
+    name: "Coimbatore Junction Railway Station",
+    address: "Railway Station Rd, Gopalapuram, Coimbatore",
+    latitude: 11.0017,
+    longitude: 76.9652,
     cleanliness: 3.8,
     amenities: ["Toilet paper", "Soap", "Paper towels"],
     reviews: [
       {
         id: "r4",
         userId: "u4",
-        userName: "David M.",
+        userName: "Dinesh M.",
         rating: 3,
         comment: "Decent, but can get crowded during rush hour.",
-        date: "2023-11-08"
+        date: "2024-03-08"
       },
       {
         id: "r5",
         userId: "u5",
-        userName: "Rachel G.",
+        userName: "Radha G.",
         rating: 4,
         comment: "Better than most train station restrooms.",
-        date: "2023-11-05"
+        date: "2024-03-05"
       }
     ],
     isOpen: true,
@@ -124,32 +127,32 @@ export const mockRestrooms: Restroom[] = [
   },
   {
     id: "4",
-    name: "Bryant Park Public Restroom",
-    address: "Bryant Park, New York, NY",
-    latitude: 40.7536,
-    longitude: -73.9832,
-    cleanliness: 4.8,
-    amenities: ["Toilet paper", "Soap", "Hand dryer", "Fresh flowers", "Attendant"],
+    name: "VOC Park Public Restroom",
+    address: "VOC Park, Coimbatore, Tamil Nadu",
+    latitude: 11.0083,
+    longitude: 76.9677,
+    cleanliness: 4.0,
+    amenities: ["Toilet paper", "Soap", "Hand dryer"],
     reviews: [
       {
         id: "r6",
         userId: "u6",
-        userName: "Emily L.",
-        rating: 5,
-        comment: "The best public restroom in NYC. Always clean and has an attendant.",
-        date: "2023-11-14"
+        userName: "Ezhil L.",
+        rating: 4,
+        comment: "Clean park restroom with good maintenance.",
+        date: "2024-03-14"
       },
       {
         id: "r7",
         userId: "u7",
         userName: "John D.",
-        rating: 5,
-        comment: "Impressive! Clean, well-maintained, and even has fresh flowers.",
-        date: "2023-11-09"
+        rating: 4,
+        comment: "Well maintained public facility.",
+        date: "2024-03-09"
       }
     ],
     isOpen: true,
-    hours: "7:00 AM - 10:00 PM",
+    hours: "7:00 AM - 8:00 PM",
     isFree: true,
     isAccessible: true,
     hasChangingTable: true,
@@ -158,39 +161,42 @@ export const mockRestrooms: Restroom[] = [
   },
   {
     id: "5",
-    name: "McDonald's - Times Square",
-    address: "1560 Broadway, New York, NY",
-    latitude: 40.7586,
-    longitude: -73.9852,
-    cleanliness: 3.0,
-    amenities: ["Toilet paper", "Soap"],
+    name: "Fun Republic Mall",
+    address: "Avinashi Road, Coimbatore, Tamil Nadu",
+    latitude: 11.0261,
+    longitude: 76.9993,
+    cleanliness: 4.3,
+    amenities: ["Toilet paper", "Soap", "Hand dryer"],
     reviews: [
       {
         id: "r8",
         userId: "u8",
-        userName: "Tom K.",
-        rating: 2,
-        comment: "Very busy and not always clean. Use only if necessary.",
-        date: "2023-11-11"
+        userName: "Tarun K.",
+        rating: 4,
+        comment: "Clean facilities with regular maintenance.",
+        date: "2024-03-11"
       },
       {
         id: "r9",
         userId: "u9",
-        userName: "Amanda P.",
-        rating: 3,
-        comment: "Convenient location but expect crowds.",
-        date: "2023-11-07"
+        userName: "Amala P.",
+        rating: 5,
+        comment: "Excellent restrooms, very clean!",
+        date: "2024-03-07"
       }
     ],
     isOpen: true,
-    hours: "24 hours",
-    isFree: false,
+    hours: "10:00 AM - 10:00 PM",
+    isFree: true,
     isAccessible: true,
     hasChangingTable: true,
     images: ["/placeholder.svg"],
     lastReported: "2 hours ago"
   }
 ];
+
+// Update default user location to Coimbatore
+export const DEFAULT_USER_LOCATION = { lat: 11.0168, lng: 76.9558 }; // Coimbatore city center
 
 export function getRestroomById(id: string): Restroom | undefined {
   return mockRestrooms.find(restroom => restroom.id === id);

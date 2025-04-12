@@ -1,20 +1,18 @@
 
 import React, { useState, useEffect } from "react";
-import { getNearbyRestrooms, Restroom } from "@/data/mockRestrooms";
+import { getNearbyRestrooms, Restroom, DEFAULT_USER_LOCATION } from "@/data/mockRestrooms";
 import RestroomCard from "@/components/restrooms/RestroomCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { MapPin, RefreshCw } from "lucide-react";
 
-// Mock user location (Times Square, NYC)
-const USER_LOCATION = { lat: 40.7580, lng: -73.9855 };
-
 const Nearby = () => {
   const { toast } = useToast();
   const [nearbyRestrooms, setNearbyRestrooms] = useState<Restroom[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortMethod, setSortMethod] = useState<"distance" | "cleanliness">("distance");
+  const [userLocation, setUserLocation] = useState(DEFAULT_USER_LOCATION);
 
   useEffect(() => {
     loadNearbyRestrooms();
@@ -25,7 +23,7 @@ const Nearby = () => {
     
     // Simulate network delay
     setTimeout(() => {
-      const restrooms = getNearbyRestrooms(USER_LOCATION.lat, USER_LOCATION.lng);
+      const restrooms = getNearbyRestrooms(userLocation.lat, userLocation.lng);
       setNearbyRestrooms(restrooms);
       setIsLoading(false);
     }, 1000);
@@ -35,15 +33,20 @@ const Nearby = () => {
     setIsLoading(true);
     toast({
       title: "Updating Location",
-      description: "Finding restrooms near your current location..."
+      description: "Finding restrooms near your current location in Coimbatore..."
     });
     
     // Simulate refreshing location
     setTimeout(() => {
+      // Slightly adjust location to simulate movement
+      setUserLocation({
+        lat: userLocation.lat + (Math.random() * 0.01 - 0.005),
+        lng: userLocation.lng + (Math.random() * 0.01 - 0.005),
+      });
       loadNearbyRestrooms();
       toast({
         title: "Location Updated",
-        description: "We found restrooms near you!"
+        description: "We found restrooms near you in Coimbatore!"
       });
     }, 1500);
   };
@@ -59,7 +62,7 @@ const Nearby = () => {
   return (
     <div className="container py-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Nearby Restrooms</h1>
+        <h1 className="text-2xl font-bold">Nearby Restrooms in Coimbatore</h1>
         <Button variant="outline" size="sm" onClick={refreshLocation} disabled={isLoading}>
           <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
           Refresh
@@ -78,7 +81,7 @@ const Nearby = () => {
       {isLoading ? (
         <div className="py-12 text-center">
           <div className="inline-block w-8 h-8 border-4 border-restroom-blue border-t-transparent rounded-full animate-spin mb-2"></div>
-          <p className="text-muted-foreground">Finding restrooms near you...</p>
+          <p className="text-muted-foreground">Finding restrooms near you in Coimbatore...</p>
         </div>
       ) : sortedRestrooms.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

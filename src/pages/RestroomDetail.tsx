@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
@@ -167,10 +168,10 @@ const RestroomDetail = () => {
         <div className="bg-gray-50 rounded-lg p-4 text-center">
           <div className="flex justify-center gap-2 mb-1">
             {restroom.isAccessible && (
-              <Accessibility className="h-5 w-5 text-restroom-blue" title="Accessible" />
+              <Accessibility className="h-5 w-5 text-restroom-blue" aria-label="Accessible" />
             )}
             {restroom.hasChangingTable && (
-              <BabyChangingStation className="h-5 w-5 text-restroom-blue" title="Baby Changing Station" />
+              <BabyChangingStation className="h-5 w-5 text-restroom-blue" aria-label="Baby Changing Station" />
             )}
           </div>
           <div className="text-sm text-muted-foreground">Amenities</div>

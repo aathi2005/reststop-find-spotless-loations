@@ -1,17 +1,16 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, ChevronRight, MapPin, Filter, X } from "lucide-react";
+import { Search, ChevronRight, Filter, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { mockRestrooms, Restroom } from "@/data/mockRestrooms";
+import { mockRestrooms, Restroom, DEFAULT_USER_LOCATION } from "@/data/mockRestrooms";
 import RestroomCard from "@/components/restrooms/RestroomCard";
 import { useToast } from "@/components/ui/use-toast";
-
-const MOCK_USER_LOCATION = { lat: 40.7580, lng: -73.9855 }; // Times Square area
+import MapDisplay from "@/components/map/MapDisplay";
 
 const Map = () => {
   const navigate = useNavigate();
@@ -28,6 +27,7 @@ const Map = () => {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [selectedRestroom, setSelectedRestroom] = useState<Restroom | null>(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [userLocation, setUserLocation] = useState(DEFAULT_USER_LOCATION);
 
   // Simulate map loading
   useEffect(() => {
@@ -51,6 +51,7 @@ const Map = () => {
         <Button 
           variant="default" 
           onClick={() => {
+            // Simulate getting user's location (in a real app, would use geolocation API)
             toast({
               title: "Location Access Granted",
               description: "Using your current location to find nearby restrooms."
@@ -101,8 +102,8 @@ const Map = () => {
     results = results.map(r => ({
       ...r,
       distance: calculateDistance(
-        MOCK_USER_LOCATION.lat, 
-        MOCK_USER_LOCATION.lng, 
+        userLocation.lat, 
+        userLocation.lng, 
         r.latitude, 
         r.longitude
       )
@@ -174,18 +175,12 @@ const Map = () => {
           </div>
         ) : (
           <>
-            <div className="absolute inset-0 bg-gray-100">
-              {/* Map Placeholder - In a real app, this would be an actual map */}
-              <div className="h-full w-full bg-blue-50 flex items-center justify-center">
-                <div className="text-center opacity-50">
-                  <MapPin className="h-16 w-16 mx-auto mb-4 text-restroom-blue" />
-                  <p className="text-sm text-muted-foreground">Map View</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    In a real app, this would show an interactive map
-                  </p>
-                </div>
-              </div>
-            </div>
+            <MapDisplay 
+              restrooms={filteredRestrooms}
+              selectedRestroom={selectedRestroom}
+              onSelectRestroom={selectRestroom}
+              userLocation={userLocation}
+            />
             
             {/* Map Controls */}
             <div className="absolute top-4 inset-x-4 z-10 flex flex-col gap-2">
@@ -328,7 +323,7 @@ const Map = () => {
                   </Button>
                 </div>
                 <div className="flex items-center text-sm mb-2">
-                  <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground" />
+                  <Search className="h-3.5 w-3.5 mr-1 text-muted-foreground" />
                   <span className="text-muted-foreground">{selectedRestroom.address}</span>
                 </div>
                 <div className="flex items-center text-sm mb-3">
@@ -357,7 +352,7 @@ const Map = () => {
       <div className="hidden md:block w-96 border-l overflow-y-auto">
         <div className="sticky top-0 z-10 bg-background p-4 border-b">
           <h2 className="font-semibold">
-            {filteredRestrooms.length} {filteredRestrooms.length === 1 ? 'Restroom' : 'Restrooms'} Found
+            {filteredRestrooms.length} {filteredRestrooms.length === 1 ? 'Restroom' : 'Restrooms'} Found in Coimbatore
           </h2>
         </div>
         <div className="p-4 space-y-4">
@@ -373,7 +368,7 @@ const Map = () => {
             ))
           ) : (
             <div className="text-center py-8">
-              <MapPin className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+              <Search className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
               <p className="text-muted-foreground">No restrooms match your filters</p>
               <Button 
                 variant="link" 

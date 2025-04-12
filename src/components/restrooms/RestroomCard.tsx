@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Restroom } from "@/data/mockRestrooms";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { StarIcon, Clock, MapPin, Accessibility } from "lucide-react";
+import { StarIcon, Clock, MapPin, Accessibility, Fuel, Building, Toilet } from "lucide-react";
 import BabyChangingStation from "@/components/icons/BabyChangingStation";
 import { cn } from "@/lib/utils";
 
@@ -38,14 +38,35 @@ const RestroomCard: React.FC<RestroomCardProps> = ({ restroom, className }) => {
             </div>
           </div>
           <div className="p-4">
-            <h3 className="font-semibold text-lg line-clamp-1">{restroom.name}</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-lg line-clamp-1">{restroom.name}</h3>
+              <Badge variant="outline" className={cn(
+                "ml-1 text-xs", 
+                restroom.type === "Public" ? "bg-blue-50 text-blue-600" : 
+                restroom.type === "Hotel" ? "bg-purple-50 text-purple-600" : 
+                "bg-amber-50 text-amber-600"
+              )}>
+                <span className="mr-1">
+                  {restroom.type === "Public" && <Toilet className="h-3 w-3" />}
+                  {restroom.type === "Hotel" && <Building className="h-3 w-3" />}
+                  {restroom.type === "Petrol Bunk" && <Fuel className="h-3 w-3" />}
+                </span>
+                {restroom.type}
+              </Badge>
+            </div>
             <div className="flex items-center mt-1 text-sm text-muted-foreground">
               <MapPin className="h-3.5 w-3.5 mr-1" />
               <span className="line-clamp-1">{restroom.address}</span>
             </div>
             
             <div className="flex items-center mt-2">
-              <div className="flex items-center bg-blue-50 text-restroom-blue rounded-md px-2 py-0.5">
+              <div className={cn(
+                "flex items-center rounded-md px-2 py-0.5",
+                restroom.cleanliness >= 4.0 ? "bg-green-50 text-green-600" :
+                restroom.cleanliness >= 3.0 ? "bg-blue-50 text-blue-600" :
+                restroom.cleanliness >= 2.0 ? "bg-amber-50 text-amber-600" :
+                "bg-red-50 text-red-600"
+              )}>
                 <StarIcon className="h-3.5 w-3.5 fill-current mr-1" />
                 <span className="text-sm font-medium">{restroom.cleanliness.toFixed(1)}</span>
               </div>

@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { Restroom } from "@/data/mockRestrooms";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { StarIcon, Clock, MapPin, Accessibility, BabyChangingStation } from "lucide-react";
+import { StarIcon, Clock, MapPin, Accessibility } from "lucide-react";
+import BabyChangingStation from "@/components/icons/BabyChangingStation";
 import { cn } from "@/lib/utils";
 
 interface RestroomCardProps {
@@ -57,10 +58,10 @@ const RestroomCard: React.FC<RestroomCardProps> = ({ restroom, className }) => {
             
             <div className="flex gap-1 mt-2">
               {restroom.isAccessible && (
-                <Accessibility className="h-4 w-4 text-restroom-blue" title="Accessible" />
+                <Accessibility className="h-4 w-4 text-restroom-blue" aria-label="Accessible" />
               )}
               {restroom.hasChangingTable && (
-                <BabyChangingStation className="h-4 w-4 text-restroom-blue" title="Baby Changing Station" />
+                <BabyChangingStation className="h-4 w-4 text-restroom-blue" aria-label="Baby Changing Station" />
               )}
             </div>
           </div>

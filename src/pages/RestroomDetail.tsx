@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
@@ -9,12 +8,12 @@ import {
   Share, 
   Star, 
   ThumbsUp, 
-  Accessibility, 
-  BabyChangingStation,
+  Accessibility,
   CheckCircle,
   AlertCircle,
   AlertTriangle
 } from "lucide-react";
+import BabyChangingStation from "@/components/icons/BabyChangingStation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
